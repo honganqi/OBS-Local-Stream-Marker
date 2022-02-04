@@ -30,10 +30,17 @@ function write_to_file(text)
 	if (output_folder ~= "" and file_exists(output_folder)) then
 		output_path = output_folder .. "/" .. output_file_name
 		local test_read = obs.os_quick_read_utf8_file(output_path);
+
+		-- if file does not exist, create a new file with headers, else get the contents
 		if test_read == nil then
 			obs.os_quick_write_utf8_file(output_path, csv_headers, #csv_headers, false);
+			text = csv_headers .. "\n" .. text;
+		else
+			if is_empty(text) ~= true then
+				text = obs.os_quick_read_utf8_file(output_path) .. "\n" .. text;
+			end
 		end
-		text = obs.os_quick_read_utf8_file(output_path) .. "\n" .. text;
+
 		if file_exists(output_path) then
 			-- placeholder variable
 			local path = "exists";
@@ -41,7 +48,19 @@ function write_to_file(text)
 			output_path = script_path .. output_file_name;
 		end
 	end
+
+	local test_read = obs.os_quick_read_utf8_file(output_path);
+	if test_read == nil then
+		obs.os_quick_write_utf8_file(output_path, csv_headers, #csv_headers, false);
+		text = csv_headers .. "\n" .. text;
+	else
+		text = test_read .. "\n" .. text;
+	end
 	obs.os_quick_write_utf8_file(output_path, text, #text, false);
+end
+
+function is_empty(text)
+	return s == nil or s == "";
 end
 
 function file_exists(path)
@@ -154,8 +173,8 @@ end
 function script_properties()
 	local properties = obs.obs_properties_create();
 
-	local directory_property = obs.obs_properties_add_text(properties, "output_folder", "Output Folder", obs.OBS_TEXT_DEFAULT)
-	obs.obs_property_set_long_description(directory_property, "The path where you want the output file to be created");
+	local directory_property = obs.obs_properties_add_path(properties, "output_folder", "Output Folder", obs.OBS_PATH_DIRECTORY, nil, nil)
+	obs.obs_property_set_long_description(directory_property, "The path where you want the output file (CSV) to be created.\n\nIf this is not specified, the CSV file will be saved in the same folder as the script.");
     obs.obs_properties_add_button(properties, "mark_stream", " Set Marker ", mark_stream)
 
 	return properties;
