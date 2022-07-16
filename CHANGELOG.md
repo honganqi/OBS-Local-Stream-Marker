@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.2 - 2022/07/16 11:47 GMT+08:00
+### Fixed
+* Fixed the issue where 2 rows of column headers are created
+instead of just 1
+
 ## 1.1 - 2022/02/04 23:41 GMT+08:00
 ### Changed
 * Changed the Output Folder textbox to a Directory textbox

@@ -29,33 +29,18 @@ function write_to_file(text)
 	-- if specified output path exists, then set this as the new output path
 	if (output_folder ~= "" and file_exists(output_folder)) then
 		output_path = output_folder .. "/" .. output_file_name
-		local test_read = obs.os_quick_read_utf8_file(output_path);
-
-		-- if file does not exist, create a new file with headers, else get the contents
-		if test_read == nil then
-			obs.os_quick_write_utf8_file(output_path, csv_headers, #csv_headers, false);
-			text = csv_headers .. "\n" .. text;
-		else
-			if is_empty(text) ~= true then
-				text = obs.os_quick_read_utf8_file(output_path) .. "\n" .. text;
-			end
-		end
-
-		if file_exists(output_path) then
-			-- placeholder variable
-			local path = "exists";
-		else
-			output_path = script_path .. output_file_name;
-		end
 	end
 
-	local test_read = obs.os_quick_read_utf8_file(output_path);
-	if test_read == nil then
-		obs.os_quick_write_utf8_file(output_path, csv_headers, #csv_headers, false);
+	local file_contents = obs.os_quick_read_utf8_file(output_path);
+
+	-- if file does not exist, create text with headers
+	-- else get the contents and put in text
+	if file_contents == nil then
 		text = csv_headers .. "\n" .. text;
 	else
-		text = test_read .. "\n" .. text;
+		text = file_contents .. "\n" .. text;
 	end
+
 	obs.os_quick_write_utf8_file(output_path, text, #text, false);
 end
 
@@ -182,7 +167,7 @@ end
 
 function script_description()
 	return [[
-<h2>Local Stream Marker v1.0</h2>
+<h2>Local Stream Marker v1.2</h2>
 <p>Use hotkeys to create markers based on the timestamp of your stream or recording!</p>
 <p>
 <a href="https://twitch.tv/honganqi">twitch.tv/honganqi</a><br>
