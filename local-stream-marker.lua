@@ -1,22 +1,24 @@
-obs = obslua
+obs 							= obslua
 
-output_file_name = "obs-local-stream-marker.csv";
-output_folder = "";
+output_file_name 				= "obs-local-stream-marker.csv";
+output_folder 					= "";
 
-csv_headers = "Date Time, Stream Start, Stream Timestamp, Recording Filename, Recording Timestamp";
-output_format = "$current_time, $stream_start_time, $stream_timestamp, $recording_start_time, $recording_timestamp";
+csv_headers 					= "Date Time, Stream Start, Stream Timestamp, Recording Filename, Recording Timestamp";
+output_format 					= "$current_time, $stream_start_time, $stream_timestamp, $recording_start_time, $recording_timestamp";
 
-stream_timestamp = "00:00:00";
-recording_timestamp = "00:00:00";
-stream_start_time = "n/a";
-recording_start_time = "n/a";
+stream_timestamp 				= "00:00:00";
+recording_timestamp 			= "00:00:00";
+stream_start_time 				= "n/a";
+recording_start_time 			= "n/a";
 
-missed_frames_before_streaming = obs.obs_get_lagged_frames();
-missed_frames_during_streaming = 0;
-missed_frames_before_recording = obs.obs_get_lagged_frames();
-missed_frames_during_recording = 0;
+missed_frames_before_streaming 	= obs.obs_get_lagged_frames();
+missed_frames_during_streaming 	= 0;
+missed_frames_before_recording 	= obs.obs_get_lagged_frames();
+missed_frames_during_recording 	= 0;
 
-marker_hotkey_id = obs.OBS_INVALID_HOTKEY_ID
+marker_hotkey_id 				= obs.OBS_INVALID_HOTKEY_ID
+
+------------------------------------------------------------------------------------------------------------------
 
 function write_to_file(text)
 	-- convert Windows path to UNIX path
@@ -64,12 +66,13 @@ function is_directory(path)
 end
 
 function mark_stream(properties, property)
-	local framerate = obs.obs_get_active_fps();
 	local stream_elapsed_time_sec = 0;
 	local recording_elapsed_time_sec = 0;
 
-	-- test variables
-	local stream_seconds_with_drops = 0;
+	local video_info = obs.obs_video_info()
+	if obs.obs_get_video_info(video_info) then
+		framerate = video_info.fps_num
+	end
 
 	-- if streaming
 	if obs.obs_frontend_streaming_active() then
@@ -82,7 +85,7 @@ function mark_stream(properties, property)
 				missed_frames_during_streaming = obs.obs_get_lagged_frames() - missed_frames_before_streaming;
 			end
 			local stream_frame_count = obs.obs_output_get_total_frames(stream_output);
-			stream_elapsed_time_sec =  ((stream_frame_count - missed_frames_during_streaming) / framerate);
+			stream_elapsed_time_sec = stream_frame_count / framerate
 		end
 
 		-- get streaming timestamp
@@ -103,7 +106,7 @@ function mark_stream(properties, property)
 				missed_frames_during_recording = obs.obs_get_lagged_frames() - missed_frames_before_recording;
 			end
 			local recording_frame_count = obs.obs_output_get_total_frames(recording_output);
-			recording_elapsed_time_sec =  ((recording_frame_count - missed_frames_during_recording) / framerate);
+			recording_elapsed_time_sec = recording_frame_count / framerate
 		end
 
 		-- get streaming timestamp
@@ -159,7 +162,7 @@ function script_properties()
 	local properties = obs.obs_properties_create();
 
 	local directory_property = obs.obs_properties_add_path(properties, "output_folder", "Output Folder", obs.OBS_PATH_DIRECTORY, nil, nil)
-	obs.obs_property_set_long_description(directory_property, "The path where you want the output file (CSV) to be created.\n\nIf this is not specified, the CSV file will be saved in the same folder as the script.");
+	obs.obs_property_set_long_description(directory_property, "The path where you want the output file (CSV) to be created.\n\nIf this is not specified or if there is an error in writing to this folder, the CSV file will be saved in the same folder as the script.");
     obs.obs_properties_add_button(properties, "mark_stream", " Set Marker ", mark_stream)
 
 	return properties;
@@ -167,8 +170,9 @@ end
 
 function script_description()
 	return [[
-<h2>Local Stream Marker v1.2</h2>
-<p>Use hotkeys to create markers based on the timestamp of your stream or recording!</p>
+<h2>Local Stream Marker v1.3</h2>
+<p>Use hotkeys to create markers based on the timestamp of your stream or recording! A CSV file named "<strong>obs-local-stream-marker.csv</strong>" will be created which can be viewed with spreadsheet applications. Also, please make sure that your CSV file is not open in a spreadsheet app so the script can write to it.</p>
+<p>Go to <strong>Settings > Hotkeys</strong> and look for "<strong>[Local Stream Marker] Add stream mark</strong>" to set your hotkey.</p>
 <p>
 <a href="https://twitch.tv/honganqi">twitch.tv/honganqi</a><br>
 <a href="https://youtube.com/honganqi">youtube.com/honganqi</a><br>
@@ -180,8 +184,8 @@ function script_description()
 end
 
 function script_update(settings)
-	output_folder = obs.obs_data_get_string(settings, "output_folder");
-	print("Local Stream Marker script reloaded");
+	output_folder = obs.obs_data_get_string(settings, "output_folder")
+	print("Local Stream Marker script reloaded")
 end
 
 function script_defaults(settings)

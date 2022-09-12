@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.3 - 2022/09/12 12:24 GMT+08:00
+### Fixed
+* MAJOR: Fixed the issue where the script has erroneous
+timestamps when used
+
 ## 1.2 - 2022/07/16 11:47 GMT+08:00
 ### Fixed
 * Fixed the issue where 2 rows of column headers are created
