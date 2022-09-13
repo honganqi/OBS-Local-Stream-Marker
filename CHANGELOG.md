@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.4 - 2022/09/13 19:31 GMT+08:00
+### Added
+* Added a column named "Recording Path" in the created CSV file 
+which includes the full path of the recording
+* Added a column named "Recording Timestamp on File" in the
+created CSV file. This will only differ from the "Recording
+Timestamp" column if the Automatic File Splitting function
+is enabled and used.
+### Changed
+* The "Recording Filename" column in the CSV file is now the
+actual filename of the recording and also includes the path.
+I forgot to indicate before that this was simply based on the
+default syntax or format of OBS.
+
 ## 1.3 - 2022/09/12 12:24 GMT+08:00
 ### Fixed
 * MAJOR: Fixed the issue where the script has erroneous

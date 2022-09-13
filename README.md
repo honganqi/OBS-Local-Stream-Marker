@@ -12,14 +12,15 @@ this with a spreadsheet application like Microsoft Excel,
 Google Sheets and the like. You may also open it with text
 editors like Notepad.
 
-Five (5) columns will be made:
-* Date and time when the stream mark was made
+Seven (7) columns will be made:
+* Date and time when the stream/recording mark was made
 * Date and time when the stream started (if streaming)
-* Timestamp of the stream (if streaming)
-* Date and time when the recording started (if recording) - this
-will be in the format of the default format OBS uses to name
-your recordings
-* Timestamp of the recording (if recording)
+* Timestamp of the stream mark (if streaming)
+* Full path to the file of the recording (if recording)
+* Filename of the recording (if recording)
+* Timestamp of the mark made on the recording (if recording)
+* Timestamp of the mark made on the recording taking Automatic File Splitting into consideration (if recording)
+
 
 # Usage
 1. Download the ZIP file. You will only need `local-stream-marker.lua`. The others are just there for reading if you're bored.
