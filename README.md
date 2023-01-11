@@ -1,4 +1,8 @@
 # Local Stream Marker
+
+[![Latest Release](https://badgen.net/github/release/honganqi/OBS-Local-Stream-Marker "Latest Release")](https://github.com/honganqi/OBS-Local-Stream-Marker/releases/latest) 
+![Downloads](https://img.shields.io/github/downloads/honganqi/OBS-Local-Stream-Marker/total "Downloads") ![GitHub Repo stars](https://badgen.net/github/stars/honganqi/OBS-Local-Stream-Marker "GitHub Repo stars") [![License](https://badgen.net/github/license/honganqi/OBS-Local-Stream-Marker "License")](https://github.com/honganqi/OBS-Local-Stream-Marker/blob/main/LICENSE) [![Discord](https://badgen.net/discord/members/EbwgmWwXF8?icon=discord&label "Discord")](https://discord.gg/EbwgmWwXF8) [![Buy Me A Coffee](https://badgen.net/badge/icon/Donate?icon=buymeacoffee&label "Donate through Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
+
 This script allows you to use a hotkey to create stream markers
 or bookmarks for streams and recordings made on OBS.
 
@@ -34,7 +38,7 @@ Seven (7) columns will be made:
 [![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)
 
 ## Donations
-[![Buy me A Coffee](http://sidestreamnetwork.net/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
+[![Buy me A Coffee](https://sidestreamnetwork.net/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
 
 I would appreciate any support you send. If this has somehow
 made you smile, made your day brighter, or made your work
