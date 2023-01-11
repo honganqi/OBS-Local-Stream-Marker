@@ -211,7 +211,7 @@ end
 
 function script_description()
 	return [[
-<h2>Local Stream Marker v1.3</h2>
+<h2>Local Stream Marker v1.4</h2>
 <p>Use hotkeys to create markers based on the timestamp of your stream or recording! A CSV file named "<strong>obs-local-stream-marker.csv</strong>" will be created which can be viewed with spreadsheet applications. Also, please make sure that your CSV file is not open in a spreadsheet app so the script can write to it.</p>
 <p>Go to <strong>Settings > Hotkeys</strong> and look for "<strong>[Local Stream Marker] Add stream mark</strong>" to set your hotkey.</p>
 <p>Note: The "Recording Timestamp on File" column in the CSV file will differ from the "Recording Timestamp" column only when the recording is split using the Automatic File Splitting function which became available in OBS 28.</p>
