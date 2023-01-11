@@ -6,7 +6,7 @@
 This script allows you to use a hotkey to create stream markers
 or bookmarks for streams and recordings made on OBS.
 
-# Description
+## Description
 Twitch has this function called `Add Stream Marker` where you
 can add bookmarks to your livestream for review later. With
 this script, you can have stream markers for any video made
@@ -26,7 +26,7 @@ Seven (7) columns will be made:
 * Timestamp of the mark made on the recording taking Automatic File Splitting into consideration (if recording)
 
 
-# Usage
+## Usage
 1. Download the ZIP file. You will only need `local-stream-marker.lua`. The others are just there for reading if you're bored.
 1. In OBS, go to `Tools` -> `Scripts`.
 3. Add the `local-stream-marker.lua` script: In the `Scripts` tab, click on `+` sign and browse to where this file is.
@@ -34,7 +34,7 @@ Seven (7) columns will be made:
 5. The `Set Marker` button you see in this window is just here if you want to test this function while you don't have a hotkey set.
 6. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
 
-# Tutorial on YouTube
+## Tutorial on YouTube
 [![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)
 
 ## Donations
