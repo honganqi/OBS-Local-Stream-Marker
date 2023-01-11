@@ -29,7 +29,7 @@ Seven (7) columns will be made:
 4. In the `Output Folder` text box, specify the path where you want the output file (CSV) to be created. If this is not specified, the CSV file will be saved in the same folder as the script.
 5. The `Set Marker` button you see in this window is just here if you want to test this function while you don't have a hotkey set.
 6. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
-* Tutorial on YouTube: https://youtu.be/kqZ8IEHLiYk
+[![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)
 
 ## Donations
 [![Buy me A Coffee](http://sidestream.tk/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
