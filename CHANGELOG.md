@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.5 - 2023/01/31 18:24 GMT+08:00
+### Fixed
+* Fixed the issue of the recording path not being detected when
+using the `Custom Output (FFmpeg)` recording type instead of
+`Standard`. The script previously assumed that it used the same
+settings. Thanks to SnowRoach for reporting this.
+
 ## 1.4 - 2022/09/13 19:31 GMT+08:00
 ### Added
 * Added a column named "Recording Path" in the created CSV file 

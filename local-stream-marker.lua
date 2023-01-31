@@ -1,4 +1,4 @@
--- Local Stream Marker v1.4
+-- Local Stream Marker v1.5
 
 obs 							= obslua
 
@@ -171,7 +171,23 @@ function on_event(event)
 		-- credits to koala and upgradeQ in the OBS Forum for this (https://obsproject.com/forum/threads/failed-to-accomplish-work-with-lua-scripting.158774/)
 		if obs.obs_frontend_recording_active() then
 			local output_settings = obs.obs_output_get_settings(recording_output)
-			recording_path = obs.obs_data_get_string(output_settings, "path")
+
+			-- obs.obs_output_get_id(recording_output) = get recording type ID
+			---- ffmpeg_muxer = Standard
+			---- ffmpeg_output = Custom Output (FFmpeg)
+			-- obs.obs_output_get_name(recording_output) = get recording type name
+			---- adv_file_output = Standard
+			---- adv_ffmpeg_output = Custom Output (FFmpeg)
+
+			-- get path based on recording type (thanks to SnowRoach for reporting this)
+			---- ffmpeg_muxer = "path"
+			---- ffmpeg_output = "url"
+			local output_type = obs.obs_output_get_id(recording_output)
+			if output_type == "ffmpeg_muxer" then
+				recording_path = obs.obs_data_get_string(output_settings, "path")
+			else
+				recording_path = obs.obs_data_get_string(output_settings, "url")
+			end
 			signal_handler = obs.obs_output_get_signal_handler(recording_output)
 			obs.signal_handler_connect(signal_handler, "file_changed", function(calldata)
 				recording_path = obs.calldata_string(calldata, "next_file")
