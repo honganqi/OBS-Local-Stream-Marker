@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.6 - 2023/03/21 11:24 GMT+08:00
+### Fixed
+* Creating stream markers for users who used frame rates not in whole numbers should work now (23.976, 29.97, 59.94). I misunderstood "fps_num" to be "fps_number" where it was actually "fps_numerator" so I had to get the "fps_den" (fps_denominator). Thanks to David Morales for reporting this issue.
+
 ## 1.5 - 2023/01/31 18:24 GMT+08:00
 ### Fixed
 * Fixed the issue of the recording path not being detected when
