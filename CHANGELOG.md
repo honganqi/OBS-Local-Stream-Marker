@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.7 - 2023/07/07 02:01 GMT+08:00
+### Fixed
+* Sheesh... I didn't realize I released the version with a typo. This caused massive errors on the timestamps. I had the fixed one on my computer for months. On line 206, "framerate" is supposed to be "fps_num / fps_den" (numerator divided by denominator). Thanks, MistehTimmeh (OBS Forums)!
+
 ## 1.6 - 2023/03/21 11:24 GMT+08:00
 ### Fixed
 * Creating stream markers for users who used frame rates not in whole numbers should work now (23.976, 29.97, 59.94). I misunderstood "fps_num" to be "fps_number" where it was actually "fps_numerator" so I had to get the "fps_den" (fps_denominator). Thanks to David Morales for reporting this issue.
