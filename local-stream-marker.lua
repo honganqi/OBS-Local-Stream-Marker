@@ -1,4 +1,4 @@
--- Local Stream Marker v1.7
+-- Local Stream Marker v1.8
 
 obs 							= obslua
 
