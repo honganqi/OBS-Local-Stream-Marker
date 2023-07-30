@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.8 - 2023/07/30 20:52 GMT+08:00
+### Added
+* Added an `Marker end` function with its own hotkey. Thanks, EmKeii!
+* Added 3 new columns to the CSV file to accommodate the above: Stream End Mark Timestamp, Recording End Mark Timestamp, and Recording File End Mark Timestamp
+* Added the "CSV Filename" field to enable the use of custom filenames.
+* Added the ability to add dynamic date info to the custom filename with "Datetime Format". Add `[date]` to the custom filename to use this. e.g. "my-first-csv [date]" will result to "my-first-csv 2023-07-30". Characters not accepted in filenames will be changed to "-". Thanks, AlexNotTheLion!
+* Added the "Datetime Format" field to enable custom datetime formats. e.g. `"%Y-%m-%d"` for `2023-07-30`, `"%B %d, %Y"` for `September 02, 2023`. If you are unsure of your datetime syntax, PLEASE SAVE YOUR WORK BEFORE TESTING THIS BECAUSE USING THE WRONG SYNTAX WILL CRASH YOUR OBS! You can test this by setting your datetime syntax, then hitting your "mark stream" hotkey to check if your file will be created. OBS will crash if it's not.
+### Changed
+* Timestamps now show "n/a" instead of "00:00:00" if a stream or recording is not active.
+
 ## 1.7 - 2023/07/07 02:01 GMT+08:00
 ### Fixed
 * Sheesh... I didn't realize I released the version with a typo. This caused massive errors on the timestamps. I had the fixed one on my computer for months. On line 206, "framerate" is supposed to be "fps_num / fps_den" (numerator divided by denominator). Thanks, MistehTimmeh (OBS Forums)!

@@ -16,14 +16,17 @@ this with a spreadsheet application like Microsoft Excel,
 Google Sheets and the like. You may also open it with text
 editors like Notepad.
 
-Seven (7) columns will be made:
+Ten (10) columns will be made:
 * Date and time when the stream/recording mark was made
 * Date and time when the stream started (if streaming)
 * Timestamp of the stream mark (if streaming)
+* Timestamp of the stream end mark (if streaming)
 * Full path to the file of the recording (if recording)
 * Filename of the recording (if recording)
 * Timestamp of the mark made on the recording (if recording)
+* Timestamp of the end mark made on the recording (if recording)
 * Timestamp of the mark made on the recording taking Automatic File Splitting into consideration (if recording)
+* Timestamp of the end mark made on the recording taking Automatic File Splitting into consideration (if recording)
 
 
 ## Usage
@@ -32,7 +35,10 @@ Seven (7) columns will be made:
 3. Add the `local-stream-marker.lua` script: In the `Scripts` tab, click on `+` sign and browse to where this file is.
 4. In the `Output Folder` text box, specify the path where you want the output file (CSV) to be created. If this is not specified, the CSV file will be saved in the same folder as the script.
 5. The `Set Marker` button you see in this window is just here if you want to test this function while you don't have a hotkey set.
-6. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
+6. Enable `Use custom filename` if you want to use #7.
+7. Use the `CSV Filename` if you want something other than the default `obs-local-stream-marker.csv`. Add `[date]` to the filename if you want to use #8.
+8. Use `Datetime Format` to customize your datetime input in #7. e.g. `"%Y-%m-%d"` for `2023-07-30`, `"%B %d, %Y"` for `September 02, 2023`. If you are unsure of your datetime syntax, PLEASE SAVE YOUR WORK BEFORE TESTING THIS BECAUSE USING THE WRONG SYNTAX WILL CRASH YOUR OBS! You can test this by setting your datetime syntax, then hitting your "mark stream" hotkey to check if your file will be created. OBS will crash if it's not.
+9. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
 
 ## Tutorial on YouTube
 [![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)
