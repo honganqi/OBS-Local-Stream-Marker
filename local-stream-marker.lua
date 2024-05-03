@@ -1,13 +1,16 @@
--- Local Stream Marker v1.8
+-- Local Stream Marker v1.9
 
 obs 							= obslua
 
 output_file_name 				= "obs-local-stream-marker.csv";
 output_file_name_custom			= "obs-local-stream-marker [date]";
+output_file_name_current		= "";
 output_file_extension			= "%.csv$";
 output_folder 					= "";
 output_datetime_format			= "%Y-%m-%d";
-output_use_custom_filename		= false;
+use_custom_filename				= false;
+reset_custom_filename			= true;
+show_log						= false;
 
 csv_headers 					= "Date Time, Stream Start, Stream Timestamp, Stream End Mark Timestamp, Recording Full Path, Recording Filename, Recording Timestamp, Recording End Mark Timestamp, Recording Timestamp on File, Recording End Mark Timestamp on File";
 output_format 					= "$current_time, $stream_start_time, $stream_timestamp, $stream_mark_end_timestamp, $recording_path, $recording_filename, $recording_timestamp, $recording_mark_end_timestamp, $recording_file_timestamp, $recording_file_mark_end_timestamp";
@@ -43,15 +46,7 @@ function write_line_to_file(text, end_mark)
 	output_folder = output_folder:gsub([[\]], "/");
 
 	-- check if using custom filename
-	local output_file_name_actual = output_file_name;
-	if output_use_custom_filename then
-		output_file_name_actual = output_file_name_custom
-		if string.match(output_file_name_actual, "%[date%]") then
-			local date_string = os.date(output_datetime_format)
-			local escaped_date_death = replaceTrashyText(date_string)
-			output_file_name_actual = output_file_name_actual:gsub("%[date%]", date_string):gsub("[^%w%-_ ]", "-")
-		end
-	end
+	local output_file_name_actual = set_filename(output_file_name_current)
 
 	-- add .csv extension if missing
 	if not string.match(output_file_name_actual, output_file_extension) then
@@ -99,13 +94,41 @@ function write_line_to_file(text, end_mark)
 end
 
 
+function set_filename(current_filename)
+	-- 1. Set filename to the default
+	local filename = output_file_name;
+	-- 2. If set to use custom filename, proceed
+	if use_custom_filename then
+		-- 3. Fetch filename from custom syntax
+		filename = output_file_name_custom
+		-- 4. Check if filename has datetime in syntax
+		if string.match(filename, "%[date%]") then
+			-- 5. Set filename to the current filename (e.g. current date/time)
+			-- 6. If set to reset date/time in filename, proceed to reset the filename
+			if reset_custom_filename then
+				local date_string = os.date(output_datetime_format)
+				local escaped_date_death = replaceTrashyText(date_string)
+				filename = filename:gsub("%[date%]", date_string):gsub("[^%w%-_ ]", "-")
+			else
+				filename = current_filename
+			end
+		end
+		reset_custom_filename = false
+	end
+	output_file_name_current = filename
+	return filename
+end
+
+
 
 function file_exists(path)
 	local ok, err, code = os.rename(path, path)
 	if not ok then
 		if code == 13 then
 			-- if file exists but OS denies permission to write
-			print("Error writing to specified output folder. File is probably in use or system is preventing write access to the file. Output is saved in script path instead.");
+			if show_log then
+				print("Error writing to specified output folder. File is probably in use or system is preventing write access to the file. Output is saved in script path instead.");
+			end
 		end
 	end
 	return ok, err;
@@ -265,14 +288,24 @@ function on_event(event)
 		stream_start_time = os.date("%Y-%m-%d %X");
 		stream_timestamp = "00:00:00";
 		get_framerate()
-		print("[Local Stream Marker] Stream started: " .. os.date("%Y-%m-%d %X"));
+		if not reset_custom_filename then
+			reset_custom_filename = true;
+		end
+		if show_log then
+			print("[Local Stream Marker] Stream started: " .. os.date("%Y-%m-%d %X"));
+		end
 	end
 	
 	if event == obs.OBS_FRONTEND_EVENT_RECORDING_STARTED then
 		recording_output = obs.obs_frontend_get_recording_output();
 		recording_timestamp = "00:00:00";
 		get_framerate()
-		print("[Local Stream Marker] Recording started: " .. os.date("%Y-%m-%d %X"));
+		if not obs.obs_frontend_streaming_active() and not reset_custom_filename then
+			reset_custom_filename = true;
+		end
+		if show_log then
+			print("[Local Stream Marker] Recording started: " .. os.date("%Y-%m-%d %X"));
+		end
 	end
 
 	if event == obs.OBS_FRONTEND_EVENT_STREAMING_STOPPED then
@@ -356,7 +389,8 @@ function script_properties()
     %Y	full year (1998)\
     %y	two-digit year (98) [00-99]\
     %%	the character `%´";
-   	local enable_analog = obs.obs_properties_add_bool(properties, "output_use_custom_filename", "Use custom filename")
+   	obs.obs_properties_add_bool(properties, "output_use_custom_filename", "Use custom filename")
+   	obs.obs_properties_add_bool(properties, "show_log", "Show debug log")
 	local custom_filename_property = obs.obs_properties_add_text(properties, "output_file_name_custom", "CSV Filename", obs.OBS_TEXT_DEFAULT)
 	obs.obs_property_set_long_description(custom_filename_property, "If left blank, CSV file will be named \"obs-local-stream-marker.csv\"\n" .. datetime_formats);
 	local datetime_format_property = obs.obs_properties_add_text(properties, "output_datetime_format", "Datetime Format", obs.OBS_TEXT_DEFAULT)
@@ -389,15 +423,19 @@ end
 function script_update(settings)
 	output_folder = obs.obs_data_get_string(settings, "output_folder")
 	output_file_name_custom = obs.obs_data_get_string(settings, "output_file_name_custom")
-	output_use_custom_filename = obs.obs_data_get_bool(settings, "output_use_custom_filename")
+	use_custom_filename = obs.obs_data_get_bool(settings, "output_use_custom_filename")
+	show_log = obs.obs_data_get_bool(settings, "show_log")
 	output_datetime_format = obs.obs_data_get_string(settings, "output_datetime_format")
 	get_framerate()
-	print("[Local Stream Marker] Script reloaded")
+	if show_log then
+		print("[Local Stream Marker] Script reloaded")
+	end
 end
 
 function script_defaults(settings)
 	obs.obs_data_set_default_string(settings, "output_file_name_custom", output_file_name_custom)
 	obs.obs_data_set_default_bool(settings, "output_use_custom_filename", false)
+	obs.obs_data_set_default_bool(settings, "show_log", false)
 	obs.obs_data_set_default_string(settings, "output_datetime_format", output_datetime_format)
 end
 

@@ -39,6 +39,12 @@ Ten (10) columns will be made:
 7. Use the `CSV Filename` if you want something other than the default `obs-local-stream-marker.csv`. Add `[date]` to the filename if you want to use #8.
 8. Use `Datetime Format` to customize your datetime input in #7. e.g. `"%Y-%m-%d"` for `2023-07-30`, `"%B %d, %Y"` for `September 02, 2023`. If you are unsure of your datetime syntax, PLEASE SAVE YOUR WORK BEFORE TESTING THIS BECAUSE USING THE WRONG SYNTAX WILL CRASH YOUR OBS! You can test this by setting your datetime syntax, then hitting your "mark stream" hotkey to check if your file will be created. OBS will crash if it's not.
 9. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
+10. If you have the `[date]` shortcode to add #8 to your filename, the following settings will apply:
+	1. If streaming or recording is not active, the timestamp when the first marker was made will be used for the filename.
+	2. If streaming is active, the timestamp when the stream was started will be used for the filename. If there was a file created in #10.1, a new file will be created with this new filename with the new timestamp.
+	3. If recording is active:
+		1. If streaming, it will continue to use the existing file with the filename created with this new timestamp.
+		2. If not streaming, it will create a new file with a filename similar to the case in #10.2.
 
 ## Tutorial on YouTube
 [![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)

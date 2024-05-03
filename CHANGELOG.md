@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.9 - 2024/05/03 14:45 GMT+08:00
+### Added
+* Added a "Show debug log" to display log entries in OBS > Scripts > Script Log
+### Fixed
+* If the CSV filename has the `[date]` shortcode to add date and/or time in the filename, it now uses the date/time at the beginning of the streaming or recording session (in that order of priority). This was the intention from the start. Thanks, shookieTea (OBS Forums)!
+
 ## 1.8 - 2023/07/30 20:52 GMT+08:00
 ### Added
 * Added an `Marker end` function with its own hotkey. Thanks, EmKeii!
