@@ -326,7 +326,7 @@ function on_event(event)
 			-- obs.obs_output_get_id(recording_output) = get recording type ID
 			---- ffmpeg_muxer = Standard
 			---- ffmpeg_output = Custom Output (FFmpeg)
-			---- mp4_output = Hybrid MP4 (thanks to MATT_bauer and vorngorth1 for reporting the crash related to this)
+			---- mp4_output = Hybrid MP4 (thanks to MATT_bauer, Hydraa, and vorngorth1 for reporting the crash related to this)
 			-- obs.obs_output_get_name(recording_output) = get recording type name
 			---- adv_file_output = Standard
 			---- adv_ffmpeg_output = Custom Output (FFmpeg)
