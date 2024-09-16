@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.10 - 2024/09/16 18:07 GMT+08:00
+### Changed
+* Updated documentation in the `README.md` file and the script
+### Fixed
+* Fixed an error related to Hybrid MP4. This fixes the error: `258: bad argument #2 to 'gsub'`
+
 ## 1.9 - 2024/05/03 14:45 GMT+08:00
 ### Added
 * Added a "Show debug log" to display log entries in OBS > Scripts > Script Log

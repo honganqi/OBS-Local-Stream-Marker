@@ -1,4 +1,4 @@
--- Local Stream Marker v1.9
+-- Local Stream Marker v1.10
 
 obs 							= obslua
 
@@ -326,6 +326,7 @@ function on_event(event)
 			-- obs.obs_output_get_id(recording_output) = get recording type ID
 			---- ffmpeg_muxer = Standard
 			---- ffmpeg_output = Custom Output (FFmpeg)
+			---- mp4_output = Hybrid MP4 (thanks to MATT_bauer and vorngorth1 for reporting the crash related to this)
 			-- obs.obs_output_get_name(recording_output) = get recording type name
 			---- adv_file_output = Standard
 			---- adv_ffmpeg_output = Custom Output (FFmpeg)
@@ -333,8 +334,9 @@ function on_event(event)
 			-- get path based on recording type (thanks to SnowRoach for reporting this)
 			---- ffmpeg_muxer = "path"
 			---- ffmpeg_output = "url"
+			---- mp4_output = "path" (used by Hybrid MP4)
 			local output_type = obs.obs_output_get_id(recording_output)
-			if output_type == "ffmpeg_muxer" then
+			if output_type == "ffmpeg_muxer" or output_type == "mp4_output" then
 				recording_path = obs.obs_data_get_string(output_settings, "path")
 			else
 				recording_path = obs.obs_data_get_string(output_settings, "url")
@@ -403,11 +405,11 @@ end
 
 function script_description()
 	return [[
-<h2>Local Stream Marker v1.8</h2>
-<p>Use hotkeys to create markers based on the timestamp of your stream or recording! A CSV file named "<strong>obs-local-stream-marker.csv</strong>" will be created which can be viewed with spreadsheet applications. Also, please make sure that your CSV file is not open in a spreadsheet app so the script can write to it.</p>
-<p>As of v1.8 (July 30, 2023), this script has been updated to accept custom filenames and the ability to add a dynamic date to the filename. e.g. If you enable the custom filename setting and use "my-first-csv-file [date]". "my-first-csv-file 2023-07-30.csv"
+<h2>Local Stream Marker v1.10</h2>
+<p>Use hotkeys to create markers on your stream or recording!</p>
 <p>Go to <strong>Settings > Hotkeys</strong> and look for "<strong>[Local Stream Marker] Add stream mark</strong>" to set your hotkey.</p>
-<p>Note: The "Recording Timestamp on File" column in the CSV file will differ from the "Recording Timestamp" column only when the recording is split using the Automatic File Splitting function which became available in OBS 28.</p>
+<p>Visit the documentation for more info: <a href="https://github.com/honganqi/OBS-Local-Stream-Marker">github.com/honganqi/OBS-Local-Stream-Marker</a></p>
+
 <p>
 <a href="https://twitch.tv/honganqi">twitch.tv/honganqi</a><br>
 <a href="https://youtube.com/honganqi">youtube.com/honganqi</a><br>

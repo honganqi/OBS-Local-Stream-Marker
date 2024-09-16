@@ -46,6 +46,10 @@ Ten (10) columns will be made:
 		1. If streaming, it will continue to use the existing file with the filename created with this new timestamp.
 		2. If not streaming, it will create a new file with a filename similar to the case in #10.2.
 
+## Notes
+1. Make sure that your CSV file is not open in a spreadsheet app so the script can write to it.
+2. The "Recording Timestamp on File" column will differ from the "Recording Timestamp" column only when the recording is split using Automatic File Splitting.
+
 ## Tutorial on YouTube
 [![OBS Local Stream Marker tutorial! #obs](https://img.youtube.com/vi/kqZ8IEHLiYk/0.jpg)](https://www.youtube.com/watch?v=kqZ8IEHLiYk)
 
