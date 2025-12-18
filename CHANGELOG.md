@@ -2,6 +2,16 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.11 - 2025/12/18 19:00 GMT+08:00
+### Added
+* Commented markers: an awesome idea by ryantheleach over at the OBS Forums! Please read the Readme or the description for more details.
+### Changed
+* Initialized all variables and functions with local scope
+* Relocated functions by section
+* General cleanup of semantics and functions
+### Fixed
+* Script was setting the wrong timestamps and durations possibly because the script was getting variables from other scripts. If this is confirmed to be fixed, this was because the variables were not initialized with local scope.
+
 ## 1.10 - 2024/09/16 18:07 GMT+08:00
 ### Changed
 * Updated documentation in the `README.md` file and the script

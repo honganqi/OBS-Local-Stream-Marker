@@ -16,17 +16,18 @@ this with a spreadsheet application like Microsoft Excel,
 Google Sheets and the like. You may also open it with text
 editors like Notepad.
 
-Ten (10) columns will be made:
-* Date and time when the stream/recording mark was made
-* Date and time when the stream started (if streaming)
-* Timestamp of the stream mark (if streaming)
-* Timestamp of the stream end mark (if streaming)
-* Full path to the file of the recording (if recording)
-* Filename of the recording (if recording)
-* Timestamp of the mark made on the recording (if recording)
-* Timestamp of the end mark made on the recording (if recording)
-* Timestamp of the mark made on the recording taking Automatic File Splitting into consideration (if recording)
-* Timestamp of the end mark made on the recording taking Automatic File Splitting into consideration (if recording)
+Eleven (11) columns will be made:
+1. Date and time when the stream/recording mark was made
+2. Date and time when the stream started (if streaming)
+3. Timestamp of the stream mark (if streaming)
+4. Timestamp of the stream end mark (if streaming)
+5. Full path to the file of the recording (if recording)
+6. Filename of the recording (if recording)
+7. Timestamp of the mark made on the recording (if recording)
+8. Timestamp of the end mark made on the recording (if recording)
+9. Timestamp of the mark made on the recording taking Automatic File Splitting into consideration (if recording)
+10. Timestamp of the end mark made on the recording taking Automatic File Splitting into consideration (if recording)
+11. Comment (if enabled and set)
 
 
 ## Usage
@@ -39,12 +40,33 @@ Ten (10) columns will be made:
 7. Use the `CSV Filename` if you want something other than the default `obs-local-stream-marker.csv`. Add `[date]` to the filename if you want to use #8.
 8. Use `Datetime Format` to customize your datetime input in #7. e.g. `"%Y-%m-%d"` for `2023-07-30`, `"%B %d, %Y"` for `September 02, 2023`. If you are unsure of your datetime syntax, PLEASE SAVE YOUR WORK BEFORE TESTING THIS BECAUSE USING THE WRONG SYNTAX WILL CRASH YOUR OBS! You can test this by setting your datetime syntax, then hitting your "mark stream" hotkey to check if your file will be created. OBS will crash if it's not.
 9. Once you're done with this window, go to `Settings` -> `Hotkeys` and look for the `[Local Stream Marker] Add stream mark` hotkey and add your specify your preferred hotkey.
-10. If you have the `[date]` shortcode to add #8 to your filename, the following settings will apply:
+10. You can set an optional end-marker in `[Local Stream Marker] Mark end`.
+11. If you have the `[date]` shortcode to add #8 to your filename, the following settings will apply:
 	1. If streaming or recording is not active, the timestamp when the first marker was made will be used for the filename.
 	2. If streaming is active, the timestamp when the stream was started will be used for the filename. If there was a file created in #10.1, a new file will be created with this new filename with the new timestamp.
 	3. If recording is active:
 		1. If streaming, it will continue to use the existing file with the filename created with this new timestamp.
-		2. If not streaming, it will create a new file with a filename similar to the case in #10.2.
+		2. If not streaming, it will create a new file with a filename similar to the case in #11.2.
+12. Comments: See [Comments](./README.md#comments)
+
+
+## Comments
+You can add predefined comments and assign them to markers which you can then add to your CSV file with your hotkeys.
+- Each marker has its own optional "End" hotkey. This marks the end of the "start".
+- Markers are LIFO (last in, first out).
+- If you use an "end" hotkey for a marker start that doesn't exist, it will not work. For example, you create a marker for "Comment 1", and then you hit the "Comment 1" hotkey to end it. If you hit that end marker again for "Comment 1", nothing will happen.
+1. Enable `Comments for markers`
+2. Set the `Number of Marker Comments` to the number of predefined comments you want to set.
+3. Set your comments in the `Comment 1`, `Comment 2`, etc. text boxes.
+4. Optionally, you can save your preset by setting a name in `Saved Presets` and then hitting the `Save comment preset` button.
+	- This will create a file in the same location you set in `Output Folder` (same as your CSV files).
+	- These files will be named after your preset name with the `.markerpresets` extension.
+5. Refresh the script (with the reload button) to see the hotkeys appear in `Settings` -> `Hotkeys`.
+6. After loading a preset, you'll also need to refresh the script to see the updated number of hotkeys in Settings.
+7. A maximum of 20 comments is set because I don't know who in the world will be able to manage more than 20 hotkeys for 20 different markers/comments in a single session.
+8. If you want to test your settings, you can start a recording to see how your hotkeys will work.
+9. Please ALWAYS test your settings and your hotkeys.
+
 
 ## Notes
 1. Make sure that your CSV file is not open in a spreadsheet app so the script can write to it.
