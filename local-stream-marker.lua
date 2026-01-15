@@ -335,7 +335,7 @@ mark_stream = function(active_comment)
     open_markers[active_comment] = open_markers[active_comment] or {}
     table.insert(open_markers[active_comment], #lines)
 
-	print_log("START '" .. active_comment .. "' → row " .. #lines)
+	print_log("START '" .. tostring(active_comment) .. "' → row " .. #lines)
 	return true;
 end
 
@@ -388,7 +388,7 @@ mark_end_stream = function(active_comment)
 
 	local queue = open_markers[active_comment]
 	if not queue or #queue == 0 then
-		print_log("END ignored: no open marker for '" .. active_comment .. "'")
+		print_log("END ignored: no open marker for '" .. tostring(active_comment) .. "'")
 		return
 	end
 
@@ -412,7 +412,7 @@ mark_end_stream = function(active_comment)
 	lines[row_index] = table.concat(fields, ", ")
 	write_all_lines(output_path, lines)
 
-	print_log("END '" .. active_comment .. "' → row " .. row_index)
+	print_log("END '" .. tostring(active_comment) .. "' → row " .. row_index)
 	return true;
 end
 
