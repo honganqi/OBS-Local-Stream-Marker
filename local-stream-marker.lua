@@ -57,6 +57,7 @@ local last_recording_frame_count		= 0
 local last_stream_frame_count			= 0
 
 -- functions and all that
+local update_output_path
 local read_local_stream_marker_csv_file
 local read_all_lines
 local write_all_lines
@@ -84,7 +85,7 @@ local print_log
 
 
 -----== FILES SECTION ==-----
-read_local_stream_marker_csv_file = function()
+update_output_path = function()
 	-- check if using custom filename
 	local output_file_name_actual = set_filename(output_file_name_current)
 
@@ -100,6 +101,10 @@ read_local_stream_marker_csv_file = function()
 	if (output_folder ~= "" and file_exists(output_folder)) then
 		output_path = output_folder .. "/" .. output_file_name_actual
 	end
+end
+
+read_local_stream_marker_csv_file = function()
+	update_output_path()
 
 	return obs.os_quick_read_utf8_file(output_path);
 end
@@ -548,13 +553,7 @@ get_all_comment_preset_files = function()
 	print_log("--- Searching for comment preset files in: " .. script_path() .. " ---")
 	preset_filenames = {}
 
-	-- set output path as the script path by default
-	output_path = script_path() .. output_file_name_actual;
-
-	-- if specified output path exists, then set this as the new output path
-	if (output_folder ~= "" and file_exists(output_folder)) then
-		output_path = output_folder .. "/" .. output_file_name_actual
-	end
+	update_output_path()
 	
 	local dir = obs.os_opendir(output_folder)
 	if dir then
