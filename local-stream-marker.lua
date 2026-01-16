@@ -548,14 +548,6 @@ get_all_comment_preset_files = function()
 	print_log("--- Searching for comment preset files in: " .. script_path() .. " ---")
 	preset_filenames = {}
 
-	-- set output path as the script path by default
-	output_path = script_path() .. output_file_name_actual;
-
-	-- if specified output path exists, then set this as the new output path
-	if (output_folder ~= "" and file_exists(output_folder)) then
-		output_path = output_folder .. "/" .. output_file_name_actual
-	end
-	
 	local dir = obs.os_opendir(output_folder)
 	if dir then
 		local entry
