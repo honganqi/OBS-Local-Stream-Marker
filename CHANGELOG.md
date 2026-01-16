@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in
 this file.
 
+## 1.12 - 2026/01/17 02:37 GMT+08:00
+### Fixed
+* Fixed a bug which broke the script on load caused by an unknown variable from an unclean cleanup (thanks, Piksure!)
+* Default preset file for comments now created automatically if comments are enabled and the preset name/file is undefined
+
 ## 1.11 - 2025/12/18 19:00 GMT+08:00
 ### Added
 * Commented markers: an awesome idea by ryantheleach over at the OBS Forums! Please read the Readme or the description for more details.

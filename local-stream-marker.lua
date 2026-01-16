@@ -1,4 +1,4 @@
--- Local Stream Marker v1.11
+-- Local Stream Marker v1.12
 
 -- initialize functions with local scope, duh
 -- OBS stuff
@@ -330,7 +330,7 @@ mark_stream = function(active_comment)
     open_markers[active_comment] = open_markers[active_comment] or {}
     table.insert(open_markers[active_comment], #lines)
 
-	print_log("START '" .. active_comment .. "' → row " .. #lines)
+	print_log("START '" .. tostring(active_comment) .. "' → row " .. #lines)
 	return true;
 end
 
@@ -508,6 +508,14 @@ update_ui_on_comments = function(props, count)
 		-- implement "on-change" to load selected preset
 		obs.obs_property_set_modified_callback(comment_preset_list_property, function(props, property, settings)
 			local preset_name = obs.obs_data_get_string(settings, "comment_preset_list")
+
+			-- if preset name is empty, create a default preset
+			if preset_name == "" then
+				preset_name = "default"
+				obs.obs_data_set_string(settings, "comment_preset_list", preset_name)
+				save_preset_file(props, property)
+			end
+
 			load_preset_file(props, preset_name)
 			return true
 		end)
@@ -520,8 +528,7 @@ update_ui_on_comments = function(props, count)
 		end)
 
 		-- save presets button
-		obs.obs_properties_add_button(props, "save_comment_preset", " Save comment preset", save_preset_file
-)
+		obs.obs_properties_add_button(props, "save_comment_preset", " Save comment preset", save_preset_file)
 
 		-- add <count> number of comment fields
 		for i = 1, count do
@@ -548,14 +555,6 @@ get_all_comment_preset_files = function()
 	print_log("--- Searching for comment preset files in: " .. script_path() .. " ---")
 	preset_filenames = {}
 
-	-- set output path as the script path by default
-	output_path = script_path() .. output_file_name_actual;
-
-	-- if specified output path exists, then set this as the new output path
-	if (output_folder ~= "" and file_exists(output_folder)) then
-		output_path = output_folder .. "/" .. output_file_name_actual
-	end
-	
 	local dir = obs.os_opendir(output_folder)
 	if dir then
 		local entry
