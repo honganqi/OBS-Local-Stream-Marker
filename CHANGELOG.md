@@ -4,7 +4,7 @@ this file.
 
 ## 1.12 - 2026/01/17 02:37 GMT+08:00
 ### Fixed
-* Fixed a bug which broke the script on load caused by an unknown variable from an unclean cleanup (thanks, Piksure!)
+* Fixed a bug which broke the script on load caused by an unknown variable from an unclean cleanup (thank you Piksure for reporting it, and thank you firefoxcodes for sending the PR to fix it!)
 * Default preset file for comments now created automatically if comments are enabled and the preset name/file is undefined
 
 ## 1.11 - 2025/12/18 19:00 GMT+08:00
